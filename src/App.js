@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { BASE_URL } from './constants';
 import Character from './components/Character';
+//import Stats from './components/Stats';
 import './App.css';
 
 const App = () => {
@@ -18,9 +19,6 @@ const App = () => {
     .then(res => {
       console.log(res.data);
       setCharName(res.data);
-      res.data.map(char => {
-        return console.log(char.name);
-      })
     })
     .catch(err => console.error(err))
   }, [])
@@ -32,6 +30,10 @@ const App = () => {
         return <Character name={char.name} key={char.name} />;
         }) : <h3>Loading...</h3>
       }
+      {/* { charName.length > 0 ? charName.map(char => {
+        return <Stats height={char.height} mass={char.mass} hairColor={char.hair_color} skinColor={char.skin_color} key={char.name} />;
+        }) : <h3>Loading...</h3>
+      } */}
     </div>
   );
 }
