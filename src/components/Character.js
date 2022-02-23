@@ -25,17 +25,16 @@ const StyledCharacter = styled.div
 export default function Character(props) {
     const [charStats, setCharStats] = useState("");
     const [currentName, setCurrentName] = useState("");
-    const { name } = props;
+    const { name, details } = props;
 
     useEffect(() => {
         axios.get(`${BASE_URL}`)
         .then(res => {
             setCharStats(res.data);
             setCurrentName(name);
-            console.log(currentName, "current");
         })
         .catch(err => console.error(err))
-    }, [currentName, name])
+    }, [name])
 
     return (
         <div>
@@ -43,6 +42,7 @@ export default function Character(props) {
                 <div>{ name }</div>
                 <button 
                 className='button'
+                onClick={() => details}
                 style={{ 
                     borderRadius: '1em', 
                     backgroundColor: 'tan', 
@@ -59,17 +59,3 @@ export default function Character(props) {
         </div>
     )
 }
-
-// color: ${props => props.theme.white};
-//     background-color: ${props => props.theme.primaryColor};
-//     margin: 1em;
-//     padding: 1em;
-//     border: 0.2em solid ${props => props.theme.secondaryColor};
-//     border-radius: 1em;
-//     box-shadow: 0.2em 0.25em 0.1em ${props => props.theme.black};
-//     width: 25%;
-//     display: flex;
-//     justify-content: space-between;
-//     align-items: center;
-//     font-weight: bold;
-//     font-size: 1.2em;

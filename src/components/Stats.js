@@ -22,7 +22,7 @@ const StyledStats = styled.div
 export default function Stats(props) {
     const { height, mass, hairColor, skinColor } = props;
     return (
-        <StyledStats>
+        <StyledStats className="stats">
             <div>{ height }</div>
             <div>{ mass }</div>
             <div>{ hairColor }</div>

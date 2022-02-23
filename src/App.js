@@ -13,11 +13,20 @@ const App = () => {
   // side effect in a component, you want to think about which state and/or props it should
   // sync up with, if any.
   const [charName, setCharName] = useState("");
+  const [openDetails, setOpenDetails] = useState("");
+
+  const openStats = (name) => {
+    setOpenDetails(name)
+    
+  }
+
+  const closeStats = () => {
+    setOpenDetails("")
+  }
 
   useEffect(() => {
     axios.get(`${BASE_URL}`)
     .then(res => {
-      console.log(res.data);
       setCharName(res.data);
     })
     .catch(err => console.error(err))
@@ -27,13 +36,9 @@ const App = () => {
     <div className="App">
       <h1 className="Header">Characters</h1>
       { charName.length > 0 ? charName.map(char => {
-        return <Character name={char.name} key={char.name} />;
+        return <Character name={char.name} key={char.name} details={openStats} />;
         }) : <h3>Loading...</h3>
       }
-      {/* { charName.length > 0 ? charName.map(char => {
-        return <Stats height={char.height} mass={char.mass} hairColor={char.hair_color} skinColor={char.skin_color} key={char.name} />;
-        }) : <h3>Loading...</h3>
-      } */}
     </div>
   );
 }
