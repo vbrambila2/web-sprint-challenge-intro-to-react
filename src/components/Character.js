@@ -25,7 +25,16 @@ const StyledCharacter = styled.div
 export default function Character(props) {
     const [charStats, setCharStats] = useState("");
     const [currentName, setCurrentName] = useState("");
-    const { name, details } = props;
+    const [open, setOpen] = useState(false);
+    const { name } = props;
+
+    const openStats = () => {
+        setOpen(true);  
+    }
+
+    const closeStats = () => {
+        setOpen(false);
+    }
 
     useEffect(() => {
         axios.get(`${BASE_URL}`)
@@ -34,7 +43,8 @@ export default function Character(props) {
             setCurrentName(name);
         })
         .catch(err => console.error(err))
-    }, [name])
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
 
     return (
         <div>
@@ -42,7 +52,7 @@ export default function Character(props) {
                 <div>{ name }</div>
                 <button 
                 className='button'
-                onClick={() => details}
+                onClick={() => openStats()}
                 style={{ 
                     borderRadius: '1em', 
                     backgroundColor: 'tan', 
@@ -53,7 +63,7 @@ export default function Character(props) {
                 >Stats</button>
             </StyledCharacter>
             { name === currentName ? charStats.filter(x => x.name === name).map(char => {
-                return <Stats height={char.height} mass={char.mass} hairColor={char.hair_color} skinColor={char.skin_color} key={char.name} />;
+                return <Stats open={open} close={closeStats} height={char.height} mass={char.mass} hairColor={char.hair_color} skinColor={char.skin_color} key={char.name} />;
                 }) : <h3>Loading...</h3>
             }
         </div>

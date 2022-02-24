@@ -16,17 +16,31 @@ const StyledStats = styled.div
     display: flex;
     justify-content: space-between;
     align-items: center;
-    display: none;
 `
 
 export default function Stats(props) {
-    const { height, mass, hairColor, skinColor } = props;
+    const { height, mass, hairColor, skinColor, open, close } = props;
+
     return (
-        <StyledStats className="stats">
+        <StyledStats 
+            className="stats" 
+            style={{display: open ? 'block': 'none'}}>
             <div>{ height }</div>
             <div>{ mass }</div>
             <div>{ hairColor }</div>
             <div>{ skinColor }</div>
+            <button 
+            className='button'
+            onClick={() => close()}
+            style={{ 
+                borderRadius: '1em', 
+                backgroundColor: 'black', 
+                color: 'tan',
+                fontWeight: 'bold',
+                padding: '0.2em',
+                marginTop: '1em',
+                width: '6em'
+            }}>Close</button>
         </StyledStats>
     )
 }
